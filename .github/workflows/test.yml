@@ -29,5 +29,5 @@ jobs:
       id: will-fail
     
     - run: echo "this ran"
-      if: steps.clone.conclusion == 'success' || steps.will-fail.conclusion == 'failure'
+      if: false || true
       
