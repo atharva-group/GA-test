@@ -33,7 +33,7 @@ jobs:
       if: steps.will-fail.conclusion == 'success'
     
     - run: exit 1
-      if: github.event_name == 'workflow_dispatch'
+      if: github.event_name != 'workflow_call'
     
     # - run: exit 1
     #   if: steps.will-fail.outcome == 'failure'
