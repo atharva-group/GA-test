@@ -32,14 +32,16 @@ jobs:
     - run: echo "this ran"
       if: steps.will-fail.conclusion == 'success'
     
+    - run: echo $ {{ github.event.type}}
+    
     # - run: exit 1
     #   if: steps.will-fail.outcome == 'failure'
 
-  it-failed:
-    needs: build
-    runs-on: ubuntu-latest
-    if: needs.build.steps.will-fail.outcome == 'failure'
-    steps: 
-      - run: exit 1
-        # if: steps.will-fail.outcome == 'failure'
+  # it-failed:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   if: needs.build.steps.will-fail.outcome == 'failure'
+  #   steps: 
+  #     - run: exit 1
+  #       # if: steps.will-fail.outcome == 'failure'
       
