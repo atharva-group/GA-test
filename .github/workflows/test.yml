@@ -26,8 +26,9 @@ jobs:
       id: clone
 
     - run: blah
+      continue-on-error: true
       id: will-fail
     
     - run: echo "this ran"
-      if: false || true
+      if: steps.will-fail.outcome == 'success'
       
