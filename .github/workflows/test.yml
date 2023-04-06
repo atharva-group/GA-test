@@ -30,5 +30,8 @@ jobs:
       id: will-fail
     
     - run: echo "this ran"
+      if: steps.will-fail.outcome == 'success'
+    
+    - run: exit 1
       if: steps.will-fail.outcome == 'failure'
       
