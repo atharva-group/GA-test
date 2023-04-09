@@ -48,7 +48,10 @@ jobs:
       run: git lfs checkout
       working-directory: tardis-refdata
       if: steps.lfs-cache.outputs.cache-hit == 'true'
-
+    
+    - run: sudo du -sh .
+      working-directory: tardis-refdata
+      
     - run: blah
       continue-on-error: true
       id: will-fail
