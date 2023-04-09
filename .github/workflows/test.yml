@@ -51,7 +51,7 @@ jobs:
     
     - run: sudo du -sh .
       working-directory: tardis-refdata
-      
+
     - run: blah
       continue-on-error: true
       id: will-fail
@@ -59,8 +59,8 @@ jobs:
     - run: echo "this ran"
       if: steps.will-fail.conclusion == 'success'
     
-    - run: exit 1
-      if: github.event_name != 'workflow_call'
+    # - run: exit 1
+    #   if: github.event_name != 'workflow_call'
     
     # - run: exit 1
     #   if: steps.will-fail.outcome == 'failure'
