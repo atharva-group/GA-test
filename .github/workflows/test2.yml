@@ -21,4 +21,4 @@ defaults:
 
 jobs:
   build:
-    uses: .github/workflows/test.yml
+    uses: ./.github/workflows/test.yml
