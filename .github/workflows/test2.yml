@@ -22,3 +22,7 @@ defaults:
 jobs:
   build:
     uses: ./.github/workflows/test.yml
+  blah:
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo ${{ github.event_name }}
