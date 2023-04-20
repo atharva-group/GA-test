@@ -23,6 +23,7 @@ jobs:
     if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
+    - run: exit 0
     - uses: actions/checkout@v2
       id: clone
     - run: echo ${{ github.event_name }}
