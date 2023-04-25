@@ -22,9 +22,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - run: ${{ github.head_ref || github.ref }}
-    - run: ${{ github.head_ref }} || ${{ github.ref }}
-    - run: ${{ env.GITHUB_SHA }}
+    # - run: ${{ github.head_ref || github.ref }}
+    # - run: ${{ github.head_ref }} || ${{ github.ref }}
+    # - run: ${{ env.GITHUB_SHA }}
+    - run: echo 'Hi ${{ env.GITHUB_SHA }}'
     - name: Early exit
       run: |
         gh run cancel ${{ github.run_id }}
