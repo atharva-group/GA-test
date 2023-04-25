@@ -24,8 +24,8 @@ jobs:
     steps:
     # - run: ${{ github.head_ref || github.ref }}
     # - run: ${{ github.head_ref }} || ${{ github.ref }}
-    # - run: ${{ env.GITHUB_SHA }}
-    - run: echo 'Hi ${{ env.GITHUB_ACTION }}'
+    - run: ${{ github.sha }}
+    - run: echo 'Hi ${{ github.sha }}'
     - name: Early exit
       run: |
         gh run cancel ${{ github.run_id }}
