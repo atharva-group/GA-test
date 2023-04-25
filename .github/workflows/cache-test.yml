@@ -3,14 +3,18 @@ name: Caching Primes
 on: push
 
 jobs:
-  cache-search:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/cache@v2
-        id: cache-primes2
-        with:
-          key: ${{ runner.os }}-primes
-          fail-on-cache-miss: true
+  # cache-search:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/cache/restore@v3
+  #       id: cache-primes2
+  #       with:
+  #         key: ${{ runner.os }}-primes
+  #         lookup-only: true
+
+  #     - uses: actions/cache/save@v3
+      
+      
           
       # - run: exit 0
       #   if: steps.cache-primes.outputs.cache-hit != 'true'
@@ -18,18 +22,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Early exit
+      run: |
+        gh run cancel ${{ github.run_id }}
+        gh run watch ${{ github.run_id }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - uses: actions/checkout@v3
+
+    - run: |
+        mkdir test
+        touch test/file.txt
+
+    - run: echo "1 2 3" >> test/file.txt
 
     - name: Cache Primes
       id: cache-primes
       uses: actions/cache@v3
       with:
-        path: prime-numbers
-        key: ${{ runner.os }}-primes
+        path: test
+        key: ${{ runner.os }}-test
 
-    - name: Generate Prime Numbers
-      if: steps.cache-primes.outputs.cache-hit != 'true'
-      run: /generate-primes.sh -d prime-numbers
+    # - name: Generate Prime Numbers
+    #   if: steps.cache-primes.outputs.cache-hit != 'true'
+    #   run: /generate-primes.sh -d prime-numbers
 
-    - name: Use Prime Numbers
-      run: /primes.sh -d prime-numbers
+    # - name: Use Prime Numbers
+    #   run: /primes.sh -d prime-numbers
