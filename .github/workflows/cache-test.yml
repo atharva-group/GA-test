@@ -25,7 +25,7 @@ jobs:
     # - run: ${{ github.head_ref || github.ref }}
     # - run: ${{ github.head_ref }} || ${{ github.ref }}
     - run: ${{ github.sha }}
-      if: 'false'
+      # if: 'false'
     - run: echo 'Hi ${{ github.sha }}'
     - name: Early exit
       run: |
