@@ -33,14 +33,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     # - run: echo ${{ github.event_name }}
-      - name: Setup environment
-        uses: conda-incubator/setup-miniconda@v2
+      - uses: conda-incubator/setup-miniconda@v2
         with:
-            miniforge-variant: Mambaforge
-            miniforge-version: latest
-            activate-environment: base
-            # use-mamba: true
-      
+          auto-activate-base: true
+          activate-environment: ""
+            
       - run: conda install tardis-sn
         
     # - name: Find Comment
