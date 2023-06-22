@@ -2,19 +2,19 @@ name: reds2
 
 
 on:
-  # push:
-  #   branches:
-  #   - '*'
+  push:
+    branches:
+    - '*'
 
-  # pull_request:
-  #   branches:
-  #   - '*'
+  pull_request:
+    branches:
+    - '*'
   # workflow_dispatch:
   # workflow_call:
   # issue_comment:                                     
   #   types: [created]
-  schedule:
-    - cron: '*/1 * * * *'
+  # schedule:
+  #   - cron: '*/1 * * * *'
 
 
 defaults:
@@ -29,10 +29,20 @@ jobs:
   #   uses: ./.github/workflows/test.yml
   blah:
     # if: github.event_name == 'issue_comment' && contains(github.event.comment.body, '/test compare reference')
-    if: github.event_name == 'schedule'
+    # if: github.event_name == 'schedule'
     runs-on: ubuntu-latest
     steps:
-    - run: echo ${{ github.event_name }}
+    # - run: echo ${{ github.event_name }}
+      - name: Setup environment
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+            miniforge-variant: Mambaforge
+            miniforge-version: latest
+            activate-environment: base
+            # use-mamba: true
+      
+      - run: conda install tardis-sn
+        
     # - name: Find Comment
     #   uses: peter-evans/find-comment@v2
     #   id: fc
