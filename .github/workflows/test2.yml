@@ -38,7 +38,7 @@ jobs:
           auto-activate-base: true
           activate-environment: ""
             
-      - run: conda install tardis-sn
+      - run: conda install -c conda-forge tardis-sn
         
     # - name: Find Comment
     #   uses: peter-evans/find-comment@v2
