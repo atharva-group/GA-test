@@ -1,4 +1,0 @@
-b = (
-	False
-)
-print(b)

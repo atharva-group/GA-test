@@ -1,0 +1,8 @@
+name: demo
+
+channels:
+  - conda-forge
+
+dependencies:
+  - python
+  - radioactivedecay
