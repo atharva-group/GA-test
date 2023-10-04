@@ -5,4 +5,4 @@ channels:
 
 dependencies:
   - python
-  - radioactivedecay
+  - radioactivedecay=0.4.19
