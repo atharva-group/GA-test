@@ -9,6 +9,5 @@ dependencies:
   - pandas
   - astropy
   - numba
+  - matplotlib-base
   - radioactivedecay
-
-  # - matplotlib-base
