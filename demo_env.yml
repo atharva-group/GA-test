@@ -5,4 +5,10 @@ channels:
 
 dependencies:
   - python
-  - radioactivedecay=0.4.12
+  - scipy
+  - pandas
+  - astropy
+  - numba
+  - radioactivedecay
+
+  # - matplotlib-base
