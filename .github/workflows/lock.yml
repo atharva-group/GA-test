@@ -27,8 +27,6 @@ jobs:
       - name: Install conda-lock
         run: mamba install -c conda-forge conda-lock
       
-      - run: conda list
-
       - name: Generate lockfiles
         run: |
           conda-lock -f demo_env.yml -p linux-64 -p osx-64
