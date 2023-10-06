@@ -22,17 +22,17 @@ jobs:
             miniforge-version: latest
             auto-activate-base: true
             activate-environment: ""
-            use-mamba: true
+            # use-mamba: true
       
-      - run: conda config --set solver libmamba
+      # - run: conda config --set solver libmamba
 
       - name: Install conda-lock
         run: mamba install -c conda-forge conda-lock
       
       - name: Generate lockfiles
         run: |
-          conda-lock -f demo_env.yml -p linux-64 -p osx-64 --no-mamba
-          # -lock -f demo_env.yml -p linux-64 -p osx-64
+          # conda-lock -f demo_env.yml -p linux-64 -p osx-64 --no-mamba
+          conda-lock -f demo_env.yml -p linux-64 -p osx-64
           conda lock render conda-lock.yml
 
       - uses: actions/upload-artifact@v3
