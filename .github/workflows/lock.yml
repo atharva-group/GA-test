@@ -22,9 +22,10 @@ jobs:
             miniforge-version: latest
             auto-activate-base: true
             activate-environment: ""
-            # use-mamba: true
+            use-mamba: true
       
       # - run: conda config --set solver libmamba
+      - run: conda list
 
       - name: Install conda-lock
         run: mamba install -c conda-forge conda-lock
