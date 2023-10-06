@@ -29,7 +29,7 @@ jobs:
       
       - name: Generate lockfiles
         run: |
-          conda-lock -f demo_env.yml -p linux-64 -p osx-64
+          conda-lock -f demo_env.yml -p linux-64 -p osx-64 --no-mamba
           conda lock render conda-lock.yml
 
       - uses: actions/upload-artifact@v3
