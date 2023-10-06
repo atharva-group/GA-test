@@ -26,6 +26,7 @@ jobs:
             mamba-version: "*"
       
       - run: conda config --set solver libmamba
+      - run: conda update -c conda-forge mamba
       - run: conda list
 
       - name: Install conda-lock
