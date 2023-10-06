@@ -4,7 +4,6 @@ channels:
   - conda-forge
 
 dependencies:
-  - conda = 22.9
   - python
   - scipy
   - pandas
