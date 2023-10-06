@@ -23,7 +23,7 @@ jobs:
             auto-activate-base: true
             activate-environment: ""
             use-mamba: true
-            mamba-version: 1.4
+            mamba-version: 1.4.9
       
       # - run: conda config --set solver libmamba
       - run: conda list
