@@ -51,5 +51,6 @@ jobs:
           # - fruit: banana
           #   animal: cat
     runs-on: ubuntu-latest
+    name: ${{ matrix.fruit }}-${{ matrix.animal }}-${{ matrix.color }}
     steps:
     - run: echo ${{ matrix.fruit }}-${{ matrix.animal }}-${{ matrix.color }}
