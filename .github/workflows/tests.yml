@@ -43,14 +43,14 @@ jobs:
         animal: [cat, dog]
         include:
           - color: green
-          - color: pink
+          - label: cat-label
             animal: cat
-          - fruit: apple
-            shape: circle
+          - label: dog-label
+            animal: dog
           # - fruit: banana
           # - fruit: banana
           #   animal: cat
     runs-on: ubuntu-latest
-    name: ${{ matrix.fruit }}-${{ matrix.animal }}-${{ matrix.color }}
+    name: ${{ matrix.fruit }}-${{ matrix.animal }}-${{ matrix.color }}-${{ matrix.label }}
     steps:
     - run: echo ${{ matrix.fruit }}-${{ matrix.animal }}-${{ matrix.color }}
