@@ -22,35 +22,35 @@ defaults:
 
 jobs:
   build:
-    # strategy:
-    #   matrix:
-    #     pip: [yes, no]
-    #     os: [osx-64, linux-64]
-    #     include:
-    #       - os: macos-latest
-    #         label: osx-64
-
-    #       - os: ubuntu-latest
-    #         label: linux-64
-
-    # name: ${{ matrix.label }}-pip-${{ matrix.pip }}
-    # runs-on: ${{ matrix.os }}
-    # steps:
-    # - run: echo ${{ matrix.os }}-${{ matrix.pip }}-${{ matrix.label }}
     strategy:
       matrix:
-        fruit: [apple, pear]
-        animal: [cat, dog]
+        pip: [yes, no]
+        label: [osx-64, linux-64]
         include:
-          - color: green
-          - label: cat-label
-            animal: cat
-          - label: dog-label
-            animal: dog
-          # - fruit: banana
-          # - fruit: banana
-          #   animal: cat
-    runs-on: ubuntu-latest
-    name: ${{ matrix.fruit }}-${{ matrix.animal }}-${{ matrix.color }}-${{ matrix.label }}
+          - os: macos-latest
+            label: osx-64
+
+          - os: ubuntu-latest
+            label: linux-64
+
+    name: ${{ matrix.label }}-pip-${{ matrix.pip }}-${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
     steps:
-    - run: echo ${{ matrix.fruit }}-${{ matrix.animal }}-${{ matrix.color }}
+    - run: echo ${{ matrix.os }}-${{ matrix.pip }}-${{ matrix.label }}
+    # strategy:
+    #   matrix:
+    #     fruit: [apple, pear]
+    #     animal: [cat, dog]
+    #     include:
+    #       - color: green
+    #       - label: cat-label
+    #         animal: cat
+    #       - label: dog-label
+    #         animal: dog
+    #       # - fruit: banana
+    #       # - fruit: banana
+    #       #   animal: cat
+    # runs-on: ubuntu-latest
+    # name: ${{ matrix.fruit }}-${{ matrix.animal }}-${{ matrix.color }}-${{ matrix.label }}
+    # steps:
+    # - run: echo ${{ matrix.fruit }}-${{ matrix.animal }}-${{ matrix.color }}
