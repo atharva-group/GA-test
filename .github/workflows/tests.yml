@@ -12,9 +12,9 @@ on:
 
 
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
-  cancel-in-progress: true
+# concurrency:
+#   group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
+#   cancel-in-progress: true
 
 defaults:
   run:
@@ -28,11 +28,9 @@ jobs:
         include:
           - os: macos-latest
             label: osx-64
-            prefix: /Users/runner/miniconda3/envs/tardis
 
           - os: ubuntu-latest
             label: linux-64
-            prefix: /usr/share/miniconda3/envs/tardis
 
     name: ${{ matrix.label }}-pip-${{ matrix.pip }}
     runs-on: ${{ matrix.os }}
