@@ -25,6 +25,7 @@ jobs:
     strategy:
       matrix:
         pip: [yes, no]
+        os: [osx-64, linux-64]
         include:
           - os: macos-latest
             label: osx-64
