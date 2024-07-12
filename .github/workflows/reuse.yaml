@@ -49,6 +49,7 @@ jobs:
   deploy-production:
     needs: deploy-staging
     runs-on: ubuntu-latest
+    environment: deploy
     steps:
       - name: Deploy to Production
         run: echo "Deploying to Production..."
