@@ -32,6 +32,9 @@ jobs:
     steps:
       - name: Deploy to Staging
         run: echo "Deploying to Staging..."
+      
+      - name: Simulate delay
+        run: sleep 25
 
   deploy-review:
     needs: build
@@ -39,6 +42,9 @@ jobs:
     steps:
       - name: Deploy to Review
         run: echo "Deploying to Review..."
+      
+      - name: Simulate delay
+        run: sleep 25
 
   deploy-production:
     needs: deploy-staging
@@ -46,3 +52,6 @@ jobs:
     steps:
       - name: Deploy to Production
         run: echo "Deploying to Production..."
+      
+      - name: Simulate delay
+        run: sleep 10
