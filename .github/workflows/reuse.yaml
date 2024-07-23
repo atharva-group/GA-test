@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os}}
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
@@ -26,33 +26,33 @@ jobs:
       - name: Build
         run: echo "Building project..."
 
-  deploy-staging:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy to Staging
-        run: echo "Deploying to Staging..."
+  # deploy-staging:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Deploy to Staging
+  #       run: echo "Deploying to Staging..."
       
-      - name: Simulate delay
-        run: sleep 25
+  #     - name: Simulate delay
+  #       run: sleep 25
 
-  deploy-review:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy to Review
-        run: echo "Deploying to Review..."
+  # deploy-review:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Deploy to Review
+  #       run: echo "Deploying to Review..."
       
-      - name: Simulate delay
-        run: sleep 25
+  #     - name: Simulate delay
+  #       run: sleep 25
 
-  deploy-production:
-    needs: deploy-staging
-    runs-on: ubuntu-latest
-    environment: deploy
-    steps:
-      - name: Deploy to Production
-        run: echo "Deploying to Production..."
+  # deploy-production:
+  #   needs: deploy-staging
+  #   runs-on: ubuntu-latest
+  #   environment: deploy
+  #   steps:
+  #     - name: Deploy to Production
+  #       run: echo "Deploying to Production..."
       
-      - name: Simulate delay
-        run: sleep 10
+  #     - name: Simulate delay
+  #       run: sleep 10

@@ -1,0 +1,23 @@
+name: CI/CD Pipeline
+
+# trigger
+on:
+  push:
+    branches:
+      - main
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Hello"
+  depends-on-build:
+    needs: build
+    runs-on: macos-latest
+    steps:
+      - run: echo "Hello this depends on ubuntu"
+  does-not-depend-on-build:
+    runs-on: macos-latest
+    steps:
+      - run: echo "Hello this depends on ubuntu"
