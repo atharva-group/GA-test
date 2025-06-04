@@ -12,7 +12,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "Hello"
-  depends-on-build:
+  depends-on-build: 
+    needs: build
+    runs-on: macos-latest
+    steps:
+      - run: echo "Hello this depends on ubuntu"
+  depends-on-build2:
     needs: build
     runs-on: macos-latest
     steps:

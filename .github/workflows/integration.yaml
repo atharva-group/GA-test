@@ -1,0 +1,34 @@
+name: Integration
+
+on:
+  workflow_dispatch:
+    inputs:
+      user_name:
+        description: Name for greeting
+        required: false
+        default: Developer
+
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+    outputs:
+      greeting: ${{ steps.hello.outputs.message }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: hello
+        uses: ./.github/actions/hello-action
+        with:
+          name: ${{ inputs.user_name }}
+      - run: 'echo "Greeting output: ${{ steps.hello.outputs.message }}"'
+
+  build:
+    uses: ./.github/workflows/reusable-build.yaml
+    with:
+      environment: production
+
+  deploy:
+    needs: [greet, build]
+    runs-on: ubuntu-latest
+    steps:
+      - run: 'echo "Deploying with greeting: ${{ needs.greet.outputs.greeting }}"'
+      - run: 'echo "Using build: ${{ needs.build.outputs.build-id }}"' 

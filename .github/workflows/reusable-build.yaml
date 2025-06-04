@@ -1,0 +1,23 @@
+name: Reusable Build
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+    outputs:
+      build-id:
+        description: The build identifier
+        value: ${{ jobs.build.outputs.build-id }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      build-id: ${{ steps.build.outputs.build-id }}
+    steps:
+      - run: echo "Building for ${{ inputs.environment }}"
+      - id: build
+        run: echo "build-id=build-$(date +%s)" >> $GITHUB_OUTPUT
+      - run: echo "Build completed with ID ${{ steps.build.outputs.build-id }}" 

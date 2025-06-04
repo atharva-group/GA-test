@@ -1,0 +1,22 @@
+name: Hello Action
+description: A simple hello action
+
+inputs:
+  name:
+    description: Name to greet
+    required: true
+    default: World
+
+outputs:
+  message:
+    description: The greeting message
+    value: ${{ steps.hello.outputs.message }}
+
+runs:
+  using: composite
+  steps:
+    - id: hello
+      run: echo "Hello ${{ inputs.name }}!"
+      shell: bash
+    - run: echo "message=Hello ${{ inputs.name }}!" >> $GITHUB_OUTPUT
+      shell: bash 
