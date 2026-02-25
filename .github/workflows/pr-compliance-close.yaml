@@ -3,6 +3,7 @@ name: Close Non-Compliant PRs
 on:
   schedule:
     - cron: '0 */6 * * *'  # Runs every 6 hours
+  workflow_dispatch:  # Allow manual triggering for testing
 
 permissions:
   pull-requests: write
@@ -49,7 +50,9 @@ jobs:
               const labeledAt = new Date(labelEvent.created_at);
               const hoursSinceLabel = (now - labeledAt) / (1000 * 60 * 60);
 
-              if (hoursSinceLabel >= 48) {
+              // TODO: change back to 48 after testing
+            const HOURS_THRESHOLD = 0.02; // ~1 minute for testing
+            if (hoursSinceLabel >= HOURS_THRESHOLD) {
                 // Close the PR
                 await github.rest.pulls.update({
                   owner: context.repo.owner,
