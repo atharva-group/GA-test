@@ -22,19 +22,39 @@ jobs:
             const title = pr.title || '';
             const body = pr.body || '';
 
-            // --- Define your violation checks here ---
             const violations = [];
 
-            // Example: title must not contain "GSoC"
-            if (/gsoc/i.test(title)) {
-              violations.push('PR title should not contain "GSoC".');
+            // Check 1: PR body must contain the three required template sections
+            // These match the exact emoji+heading from the PR template
+            const requiredSections = [
+              { emoji: '📝', heading: 'Description', pattern: /:pencil:|📝/ },
+              { emoji: '🚦', heading: 'Testing',     pattern: /:vertical_traffic_light:|🚦/ },
+              { emoji: '☑️', heading: 'Checklist',   pattern: /:ballot_box_with_check:|☑️/ },
+            ];
+
+            const missingSections = requiredSections.filter(
+              s => !s.pattern.test(body)
+            );
+
+            if (missingSections.length > 0) {
+              const missing = missingSections.map(s => `${s.emoji} ${s.heading}`).join(', ');
+              violations.push(
+                `PR body is missing required template sections: **${missing}**. ` +
+                'Please use the [PR template](https://github.com/tardis-sn/.github/blob/main/.github/pull_request_template.md).'
+              );
             }
 
-            // Example: body must contain the PR template checklist
-            if (!body.includes('## Description') || !body.includes('## Testing')) {
-              violations.push('PR body must follow the PR template (include ## Description and ## Testing sections).');
+            // Check 2: If title contains "GSoC", body must mention AI/LLM usage
+            if (/gsoc/i.test(title)) {
+              const mentionsAI = /\bAI\b|LLM/i.test(body);
+              if (!mentionsAI) {
+                violations.push(
+                  'GSoC PRs must include a statement about AI/LLM usage in the PR body. ' +
+                  'Please mention whether you used AI or LLM tools and how, per our ' +
+                  '[AI Usage Policy](https://tardis-sn.github.io/summer_of_code/ai_usage_policy/).'
+                );
+              }
             }
-            // --- End violation checks ---
 
             const label = 'auto-close-pending';
 
