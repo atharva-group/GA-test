@@ -1,0 +1,65 @@
+name: Export Conda Environments from Lockfiles
+
+on:
+  workflow_dispatch:
+
+jobs:
+  export-env-macos:
+    runs-on: macos-latest
+    steps:
+      - name: Download lockfile
+        run: |
+          curl -sLO https://raw.githubusercontent.com/tardis-sn/tardisbase/main/conda-osx-arm64.lock
+
+      - name: Setup Miniforge
+        uses: conda-incubator/setup-miniconda@v3
+        with:
+          miniforge-version: latest
+          activate-environment: tardis-bench
+
+      - name: Create environment from lockfile
+        shell: bash -l {0}
+        run: |
+          mamba create -n tardis-bench --file conda-osx-arm64.lock -y
+
+      - name: Export environment
+        shell: bash -l {0}
+        run: |
+          mamba activate tardis-bench
+          mamba env export --no-builds > env-bench-macos.yml
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: env-bench-macos
+          path: env-bench-macos.yml
+
+  export-env-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download lockfile
+        run: |
+          curl -sLO https://raw.githubusercontent.com/tardis-sn/tardisbase/main/conda-linux-64.lock
+
+      - name: Setup Miniforge
+        uses: conda-incubator/setup-miniconda@v3
+        with:
+          miniforge-version: latest
+          activate-environment: tardis-bench
+
+      - name: Create environment from lockfile
+        shell: bash -l {0}
+        run: |
+          mamba create -n tardis-bench --file conda-linux-64.lock -y
+
+      - name: Export environment
+        shell: bash -l {0}
+        run: |
+          mamba activate tardis-bench
+          mamba env export --no-builds > env-bench-linux.yml
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: env-bench-linux
+          path: env-bench-linux.yml
