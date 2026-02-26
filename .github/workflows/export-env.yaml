@@ -7,19 +7,19 @@ jobs:
   export-env-macos:
     runs-on: macos-latest
     steps:
-      - name: Download lockfile
+      - name: Download env file
         run: |
-          curl -sLO https://raw.githubusercontent.com/tardis-sn/tardisbase/master/conda-osx-arm64.lock
+          curl -sLO https://raw.githubusercontent.com/atharva-2001/tardisbase/env-benchmark/env-bench.yml
 
       - name: Setup Miniforge
         uses: conda-incubator/setup-miniconda@v3
         with:
           miniforge-version: latest
 
-      - name: Create environment from lockfile
+      - name: Create environment from env file
         shell: bash -l {0}
         run: |
-          conda create -n tardis-bench --file conda-osx-arm64.lock -y
+          mamba env create -f env-bench.yml -n tardis-bench -y
 
       - name: Export environment
         shell: bash -l {0}
@@ -36,19 +36,19 @@ jobs:
   export-env-linux:
     runs-on: ubuntu-latest
     steps:
-      - name: Download lockfile
+      - name: Download env file
         run: |
-          curl -sLO https://raw.githubusercontent.com/tardis-sn/tardisbase/master/conda-linux-64.lock
+          curl -sLO https://raw.githubusercontent.com/atharva-2001/tardisbase/env-benchmark/env-bench.yml
 
       - name: Setup Miniforge
         uses: conda-incubator/setup-miniconda@v3
         with:
           miniforge-version: latest
 
-      - name: Create environment from lockfile
+      - name: Create environment from env file
         shell: bash -l {0}
         run: |
-          conda create -n tardis-bench --file conda-linux-64.lock -y
+          mamba env create -f env-bench.yml -n tardis-bench -y
 
       - name: Export environment
         shell: bash -l {0}
