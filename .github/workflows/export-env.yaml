@@ -19,7 +19,7 @@ jobs:
       - name: Create environment from env file
         shell: bash -l {0}
         run: |
-          mamba env create -f env-bench.yml -n tardis-bench -y
+          mamba env create -f env.yml -n tardis-bench -y
 
       - name: Export environment
         shell: bash -l {0}
@@ -48,7 +48,7 @@ jobs:
       - name: Create environment from env file
         shell: bash -l {0}
         run: |
-          mamba env create -f env-bench.yml -n tardis-bench -y
+          mamba env create -f env.yml -n tardis-bench -y
 
       - name: Export environment
         shell: bash -l {0}
