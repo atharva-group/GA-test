@@ -9,7 +9,7 @@ jobs:
     steps:
       - name: Download env file
         run: |
-          curl -sLO https://raw.githubusercontent.com/atharva-2001/tardisbase/env-benchmark/env-bench.yml
+          curl -sLO https://raw.githubusercontent.com/atharva-2001/tardisbase/env-benchmark/env.yml
 
       - name: Setup Miniforge
         uses: conda-incubator/setup-miniconda@v3
@@ -38,7 +38,7 @@ jobs:
     steps:
       - name: Download env file
         run: |
-          curl -sLO https://raw.githubusercontent.com/atharva-2001/tardisbase/env-benchmark/env-bench.yml
+          curl -sLO https://raw.githubusercontent.com/atharva-2001/tardisbase/env-benchmark/env.yml
 
       - name: Setup Miniforge
         uses: conda-incubator/setup-miniconda@v3
