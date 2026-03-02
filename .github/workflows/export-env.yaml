@@ -9,7 +9,7 @@ jobs:
     steps:
       - name: Download env file
         run: |
-          curl -sLO https://raw.githubusercontent.com/atharva-2001/tardisbase/env-benchmark/env.yml
+          curl -sLO https://raw.githubusercontent.com/atharva-2001/tardisbase/env-benchmark/env-bench.yml
 
       - name: Setup Miniforge
         uses: conda-incubator/setup-miniconda@v3
@@ -19,7 +19,7 @@ jobs:
       - name: Create environment from env file
         shell: bash -l {0}
         run: |
-          mamba env create -f env.yml -n tardis-bench -y
+          mamba env create -f env-bench.yml -n tardis-bench -y
 
       - name: Export environment
         shell: bash -l {0}
@@ -38,7 +38,7 @@ jobs:
     steps:
       - name: Download env file
         run: |
-          curl -sLO https://raw.githubusercontent.com/atharva-2001/tardisbase/env-benchmark/env.yml
+          curl -sLO https://raw.githubusercontent.com/atharva-2001/tardisbase/env-benchmark/env-bench.yml
 
       - name: Setup Miniforge
         uses: conda-incubator/setup-miniconda@v3
@@ -48,7 +48,7 @@ jobs:
       - name: Create environment from env file
         shell: bash -l {0}
         run: |
-          mamba env create -f env.yml -n tardis-bench -y
+          mamba env create -f env-bench.yml -n tardis-bench -y
 
       - name: Export environment
         shell: bash -l {0}
