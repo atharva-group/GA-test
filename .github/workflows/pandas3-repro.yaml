@@ -1,0 +1,99 @@
+name: Pandas 3.0 Bug Reproducer
+
+on:
+  workflow_dispatch:
+
+jobs:
+  pandas2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Miniforge
+        uses: conda-incubator/setup-miniconda@v3
+        with:
+          miniforge-version: latest
+
+      - name: Create pandas 2.x env
+        shell: bash -l {0}
+        run: |
+          mamba create -n pd2 python=3.11 "pandas<3" numpy pytables -y -q
+
+      - name: Run reproducer
+        shell: bash -l {0}
+        run: |
+          conda activate pd2
+          python -c "
+          import pandas as pd
+          import tables
+          import tempfile, os
+
+          print(f'pandas={pd.__version__}')
+
+          # Bug 1: readonly .values
+          df = pd.DataFrame({'a': [1.0, 2.0, 3.0]})
+          arr = df['a'].values
+          print(f'writeable={arr.flags.writeable}')
+          try:
+              arr[0] = 99.0
+              print('write: OK')
+          except ValueError as e:
+              print(f'write: FAILED -- {e}')
+
+          # Bug 2: HDF5 bytes attr
+          path = os.path.join(tempfile.mkdtemp(), 'test.h5')
+          df2 = pd.DataFrame({'x': [1.0]})
+          df2.to_hdf(path, key='d')
+          with tables.open_file(path, 'a') as f:
+              f.root.d._v_attrs.pandas_type = b'frame'
+          try:
+              pd.read_hdf(path, key='d')
+              print('hdf5 bytes attr read: OK')
+          except TypeError as e:
+              print(f'hdf5 bytes attr read: FAILED -- {e}')
+          "
+
+  pandas3:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Miniforge
+        uses: conda-incubator/setup-miniconda@v3
+        with:
+          miniforge-version: latest
+
+      - name: Create pandas 3.x env
+        shell: bash -l {0}
+        run: |
+          mamba create -n pd3 python=3.11 "pandas>=3" numpy pytables -y -q
+
+      - name: Run reproducer
+        shell: bash -l {0}
+        run: |
+          conda activate pd3
+          python -c "
+          import pandas as pd
+          import tables
+          import tempfile, os
+
+          print(f'pandas={pd.__version__}')
+
+          # Bug 1: readonly .values
+          df = pd.DataFrame({'a': [1.0, 2.0, 3.0]})
+          arr = df['a'].values
+          print(f'writeable={arr.flags.writeable}')
+          try:
+              arr[0] = 99.0
+              print('write: OK')
+          except ValueError as e:
+              print(f'write: FAILED -- {e}')
+
+          # Bug 2: HDF5 bytes attr
+          path = os.path.join(tempfile.mkdtemp(), 'test.h5')
+          df2 = pd.DataFrame({'x': [1.0]})
+          df2.to_hdf(path, key='d')
+          with tables.open_file(path, 'a') as f:
+              f.root.d._v_attrs.pandas_type = b'frame'
+          try:
+              pd.read_hdf(path, key='d')
+              print('hdf5 bytes attr read: OK')
+          except TypeError as e:
+              print(f'hdf5 bytes attr read: FAILED -- {e}')
+          "
