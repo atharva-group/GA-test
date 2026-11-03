@@ -1,0 +1,14 @@
+name: docs
+
+on:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - run: mkdir html && echo "<p>${{ github.event.pull_request.head.sha }}</p>" > html/index.html
+      - uses: actions/upload-artifact@v7
+        with:
+          name: docs-build-${{ github.event.pull_request.head.sha }}
+          path: html
