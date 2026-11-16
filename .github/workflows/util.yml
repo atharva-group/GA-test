@@ -108,3 +108,15 @@ jobs:
 
             Please mark the pull request as draft if you are not ready for review yet or if there are things you will be adding.
         run: gh pr comment "$NUMBER" --repo "$GITHUB_REPOSITORY" --body "$BODY"
+
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - run: env | grep '^D_'
+        env:
+          D_ACTION: ${{ github.event.action }}
+          D_ASSOC: ${{ github.event.pull_request.author_association }}
+          D_OPENED: ${{ github.event.action == 'opened' }}
+          D_IN_LIST: ${{ contains(fromJSON('["FIRST_TIMER", "FIRST_TIME_CONTRIBUTOR", "NONE", "OWNER", "MEMBER", "COLLABORATOR"]'), github.event.pull_request.author_association) }}
+          D_GSOC: ${{ contains(github.event.pull_request.title, 'gsoc') || contains(github.event.pull_request.body, 'google summer of code') }}
+          D_REF: ${{ github.ref }}
