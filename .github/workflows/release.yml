@@ -12,8 +12,11 @@ on:
         type: boolean
         default: true
   pull_request_target:
-    branches: [main]
+    branches: [stardis-release-test] # TEST
     types: [closed]
+
+permissions: # TEST: GA-test default token is read only
+  contents: write
 
 defaults:
   run:
@@ -62,7 +65,7 @@ jobs:
         with:
           name: Stardis v${{ env.NEW_TAG }}
           tag_name: release-${{ env.NEW_TAG }}
-          token: ${{ secrets.BOT_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           body: "This release has been created automatically by the STARDIS continuous delivery pipeline."
           draft: false
       
@@ -105,7 +108,7 @@ jobs:
         uses: softprops/action-gh-release@v3
         with:
           tag_name: release-${{ env.NEW_TAG }}
-          token: ${{ secrets.BOT_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           body: |
             This release has been created automatically by the STARDIS continuous delivery pipeline.
             ${{ env.doi_badge }}
