@@ -8,6 +8,8 @@ on:
   schedule:
     - cron: "*/10 * * * *" # TEST: every 10 minutes
   workflow_dispatch: # manual trigger
+  repository_dispatch: # TEST: API trigger that is not a manual run
+    types: [test]
 
 permissions: # TEST: GA-test default token is read only
   contents: write
