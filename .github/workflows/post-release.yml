@@ -56,7 +56,7 @@ jobs:
           python-version: "3.x"
 
       - name: Install doi2cff
-        run: pip install git+https://github.com/citation-file-format/doi2cff
+        run: pip install git+https://github.com/citation-file-format/doi2cff "nameparser<3"
 
       - name: Update CITATION.cff
         run: |
